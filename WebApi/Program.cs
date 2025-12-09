@@ -1,6 +1,5 @@
 using Application;
 using Infrastructure;
-using Presentation;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +11,7 @@ builder.Services.AddControllers();
 
 builder.Services
     .AddApplication()
-    .AddInfrastucture()
-    .AddPresentation();
+    .AddInfrastucture();
 
 
 builder.Host.UseSerilog((context, config) =>

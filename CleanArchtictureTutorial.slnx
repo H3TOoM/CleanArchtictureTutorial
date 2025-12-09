@@ -3,7 +3,6 @@
     <Project Path="D:/Web API Projects/CleanArchtictureTutorial/Application/Application.csproj" />
     <Project Path="D:/Web API Projects/CleanArchtictureTutorial/Domain/Domain.csproj" />
     <Project Path="Infrastucture/Infrastucture.csproj" Id="8035a9b2-e938-4333-b98f-0f4c2e92757f" />
-    <Project Path="Presentaion/Presentaion.csproj" Id="d02dfce7-30e6-4147-bcdf-1522d8648f41" />
     <Project Path="WebApi/WebApi.csproj" Id="719d46a1-573a-4da5-bab2-5eafd12644ed" />
   </Folder>
 </Solution>
