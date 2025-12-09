@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Domain.Entites;
 using Domain.Repoistiers;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,15 @@ namespace Application.Services
         {
             _repo = repo;
         }
+
+        public bool AddProduct(Product product)
+        {
+            if (product == null)
+                return false;
+            _repo.AddProduct(product);
+            return true;
+        }
+
         public List<ProductDto> GetAllProducts()
         {
             var products = _repo.GetAllProducts();

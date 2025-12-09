@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Application.Interfaces;
+using Application.Services;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ namespace Application
             );
 
             services.AddValidatorsFromAssembly(assembly);
+            services.AddScoped<IProductService, ProductService>();
 
             return services;
         }

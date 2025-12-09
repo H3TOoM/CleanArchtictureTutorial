@@ -8,6 +8,7 @@ namespace Domain.Repoistiers
     public interface IProductRepoistery
     {
         List<Product> GetAllProducts();
+        void AddProduct(Product product);
         
     }
 }
