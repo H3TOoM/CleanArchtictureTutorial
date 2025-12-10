@@ -9,6 +9,6 @@ namespace Application.Interfaces
     public interface IProductService
     {
         List<ProductDto> GetAllProducts();
-        bool AddProduct(Product product);
+        bool AddProduct(ProductDto dto);
     }
 }

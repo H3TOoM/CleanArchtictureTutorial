@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Domain.Entites;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,10 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(Product product)
+        public IActionResult AddProduct(ProductDto dto)
         {
-            _productService.AddProduct(product);
-            return Ok(product);
+            _productService.AddProduct(dto);
+            return Ok(dto);
         }
 
     }

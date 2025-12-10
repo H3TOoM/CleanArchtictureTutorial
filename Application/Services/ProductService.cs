@@ -16,10 +16,15 @@ namespace Application.Services
             _repo = repo;
         }
 
-        public bool AddProduct(Product product)
+        public bool AddProduct(ProductDto dto)
         {
-            if (product == null)
+            if (dto == null)
                 return false;
+            var product = new Product
+            {
+                Name = dto.Name,
+                Price = dto.Price,
+            };
             _repo.AddProduct(product);
             return true;
         }

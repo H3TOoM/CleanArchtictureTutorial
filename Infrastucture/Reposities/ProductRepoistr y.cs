@@ -24,6 +24,7 @@ namespace Infrastucture.Reposities
         public void AddProduct(Product product)
         {
             _dbSet.Add(product);
+            _context.SaveChanges();
         }
 
         public List<Product> GetAllProducts() => _dbSet.ToList();
