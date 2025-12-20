@@ -1,8 +1,10 @@
-﻿using Application.DTOs;
+﻿using Application.Commands;
+using Application.DTOs;
 using Application.Interfaces;
 using Domain.Entites;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
@@ -11,9 +13,11 @@ namespace WebApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
-        public ProductsController(IProductService productService)
+        private readonly CreateProductCommand _createProductCommand;
+        public ProductsController(IProductService productService, CreateProductCommand createProductCommand)
         {
-            _productService = productService;   
+            _productService = productService;
+            _createProductCommand = createProductCommand;
         }
 
         [HttpGet]
@@ -24,10 +28,14 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(ProductDto dto)
+        public async Task<IActionResult> AddProduct(ProductDto dto)
         {
-            _productService.AddProduct(dto);
-            return Ok(dto);
+            var result = await _createProductCommand.Excute(dto);
+            if (result)
+            {
+                return Ok(dto);
+            }
+            return BadRequest();
         }
 
     }

@@ -9,6 +9,6 @@ namespace Domain.Repoistiers
     {
         List<Product> GetAllProducts();
         void AddProduct(Product product);
-        
+        void SaveChanges();
     }
 }

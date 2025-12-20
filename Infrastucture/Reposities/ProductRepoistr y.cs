@@ -29,7 +29,10 @@ namespace Infrastucture.Reposities
 
         public List<Product> GetAllProducts() => _dbSet.ToList();
         
-           
-        
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
     }
 }
