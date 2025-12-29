@@ -1,7 +1,9 @@
-﻿using Application.Commands;
-using Application.DTOs;
+﻿using Application.DTOs;
+using Application.Features.Commands;
+using Application.Features.Queries;
 using Application.Interfaces;
 using Domain.Entites;
+using Domain.Repoistiers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -12,31 +14,33 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService _productService;
-        private readonly CreateProductCommand _createProductCommand;
-        public ProductsController(IProductService productService, CreateProductCommand createProductCommand)
-        {
-            _productService = productService;
-            _createProductCommand = createProductCommand;
-        }
+        private readonly AddProductCommandHandler _addProductHandler;
+        private readonly GetAllProductsQueryHandler _getAllProductsHandler;
 
-        [HttpGet]
-        public IActionResult GetAllProducts() 
+        public ProductsController(AddProductCommandHandler addProductHandler, GetAllProductsQueryHandler getAllProductsHandler)
         {
-            var products = _productService.GetAllProducts();
-            return Ok(products);       
+            _addProductHandler = addProductHandler;
+            _getAllProductsHandler = getAllProductsHandler;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(ProductDto dto)
+        public IActionResult Add(AddProductCommand command)
         {
-            var result = await _createProductCommand.Excute(dto);
-            if (result)
-            {
-                return Ok(dto);
-            }
-            return BadRequest();
+            if (command == null)
+                return BadRequest("Invalid product data.");
+
+            var result = _addProductHandler.Handle(command);
+            if (!result)
+                return BadRequest("Failed to add product.");
+
+            return Ok("Product added successfully.");
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var products = _getAllProductsHandler.Handle();
+            return Ok(products);
+        }
     }
 }

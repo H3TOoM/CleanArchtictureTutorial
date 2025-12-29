@@ -1,4 +1,6 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.Commands;
+using Application.Features.Queries;
+using Application.Interfaces;
 using Application.Services;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,9 @@ namespace Application
 
             services.AddValidatorsFromAssembly(assembly);
             services.AddScoped<IProductService, ProductService>();
+
+            services.AddTransient<AddProductCommandHandler>()
+                .AddTransient<GetAllProductsQueryHandler>();
 
             return services;
         }
