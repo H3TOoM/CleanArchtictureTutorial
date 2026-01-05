@@ -7,9 +7,5 @@ using System.Text;
 
 namespace Application.Features.Commands
 {
-    public class AddProductCommand
-    {
-        public ProductDto product { get; set; }
-        
-    }
+    public record AddProductCommand(ProductDto Product);
 }

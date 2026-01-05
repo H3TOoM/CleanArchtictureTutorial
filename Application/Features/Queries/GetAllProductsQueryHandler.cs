@@ -14,9 +14,9 @@ namespace Application.Features.Queries
             _repo = repo;
         }
 
-        public IEnumerable<Product> Handle()
+        public IEnumerable<Product> Handle(GetAllProductsQuery query)
         {
             return _repo.GetAllProducts();
-        }   
+        }
     }
 }

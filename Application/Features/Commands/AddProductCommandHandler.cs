@@ -3,6 +3,7 @@ using Domain.Repoistiers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Features.Commands
 {
@@ -14,18 +15,20 @@ namespace Application.Features.Commands
             _repo = repo;
         }
 
-        public bool Handle(AddProductCommand command)
+        public async Task<bool> Handle(AddProductCommand command)
         {
-            if (command == null || command.product == null)
+            if (command == null || command.Product == null)
                 return false;
 
             var product = new Product
             {
-                Name = command.product.Name,
-                Price = command.product.Price,
+                Name = command.Product.Name,
+                Price = command.Product.Price,
             };
 
             _repo.AddProduct(product);
+            _repo.SaveChanges();
+
             return true;
         }
     }

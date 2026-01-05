@@ -24,12 +24,12 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddProductCommand command)
+        public async Task<IActionResult> Add(AddProductCommand command)
         {
             if (command == null)
                 return BadRequest("Invalid product data.");
 
-            var result = _addProductHandler.Handle(command);
+            var result = await _addProductHandler.Handle(command);
             if (!result)
                 return BadRequest("Failed to add product.");
 
@@ -37,9 +37,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var products = _getAllProductsHandler.Handle();
+            var products =  _getAllProductsHandler.Handle(new GetAllProductsQuery());
             return Ok(products);
         }
     }
