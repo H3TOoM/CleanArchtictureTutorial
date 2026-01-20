@@ -39,6 +39,7 @@ namespace Application.Features.Commands
             {
                 Name = request.Product.Name,
                 Price = request.Product.Price,
+                CategoryId = request.Product.CategoryId,
             };
             _repo.AddProduct(product);
             _repo.SaveChanges();

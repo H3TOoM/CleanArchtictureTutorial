@@ -10,5 +10,10 @@ namespace Domain.Entites
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        // Navigation property to Category
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

@@ -2,10 +2,12 @@
 using Domain.Repoistiers;
 using Infrastucture.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastucture.Reposities
 {
@@ -27,7 +29,33 @@ namespace Infrastucture.Reposities
             _context.SaveChanges();
         }
 
-        public List<Product> GetAllProducts() => _context.products.AsNoTracking().ToList();
+        public Task<List<Product>> GetAllProducts()
+        {
+            //return _context.products
+            //    .AsNoTracking()
+            //    .Include(p => p.Category) // Eager loading of related Category data
+            //    .ToList();
+            // Explicit Loading
+            //var book = _context.products.FirstOrDefault();
+            //_context.Entry(book).Reference(p => p.Category).Load();
+
+            var books = _context.products
+                .AsNoTracking()
+                .Select(p => new Product
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Category = new Category
+                    {
+                        Id = p.Category.Id,
+                        Name = p.Category.Name
+                    }
+                });
+
+            return books.ToListAsync();
+
+        }
 
         // AsNoTracking() improves performance when entities are only read and not updated.
         // Queries = AsNoTracking() is particularly useful in read-only scenarios, such as displaying data in a web application,

@@ -13,5 +13,6 @@ namespace Infrastucture.Data
         }
 
         public DbSet<Product> products { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }

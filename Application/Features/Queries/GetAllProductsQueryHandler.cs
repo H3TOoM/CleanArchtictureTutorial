@@ -16,17 +16,11 @@ namespace Application.Features.Queries
         }
 
 
-        // With MediatR
-        public Task<List<Product>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<List<Product>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var products = _repo.GetAllProducts();
-            return Task.FromResult(products);
+            var products = await _repo.GetAllProducts();
+            return products;
         }
 
-        // Without MediatR
-        //public IEnumerable<Product> Handle(GetAllProductsQuery query)
-        //{
-        //    return _repo.GetAllProducts();
-        //}
     }
 }

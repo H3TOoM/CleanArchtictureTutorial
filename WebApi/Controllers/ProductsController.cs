@@ -1,7 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Features.Commands;
 using Application.Features.Queries;
-using Application.Interfaces;
 using Domain.Entites;
 using Domain.Repoistiers;
 using MediatR;
