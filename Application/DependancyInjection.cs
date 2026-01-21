@@ -1,6 +1,8 @@
-﻿using Application.Features.Commands;
+﻿using Application.Features.Behaviors;
+using Application.Features.Commands;
 using Application.Features.Queries;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,6 @@ using System.Text;
 
 namespace Application
 {
-    // We will Register in Program 
     public static class DependancyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
@@ -19,6 +20,9 @@ namespace Application
             );
 
             services.AddValidatorsFromAssembly(assembly);
+            services.AddValidatorsFromAssemblyContaining<AddProductCommandValidator>();
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
 
             services.AddTransient<AddProductCommandHandler>()
                 .AddTransient<GetAllProductsQueryHandler>();
